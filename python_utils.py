@@ -16,7 +16,7 @@ def util1():
 
 def util2():
     """
-    判断对象类型:2种方法133
+    判断对象类型:2种方法13332
                     isinstance的效率更高
     :return:
     """
