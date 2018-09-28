@@ -3,7 +3,7 @@
 # @Datetime : 18-9-20 下午6:02
 # @Author : min
 # @Site : 
-# @function : 平时经常网上搜索的功能,但由于经常会忘,所以还是记录下来,写在py文件
+# @function : 记录下来,写在py文件里,方便搜索.
 
 
 def get_model_field():
@@ -22,5 +22,5 @@ def get_model_field():
 
 
 if __name__ == '__main__':
-    pass
+    get_model_field()
 
