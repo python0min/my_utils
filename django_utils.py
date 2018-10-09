@@ -6,10 +6,10 @@
 # @function : 记录下来,写在py文件里,方便搜索.
 
 
-def get_model_field():
+def dd_get_model_field():
     """
     获取model的verbose_name和name的数据库的字段名
-    # from mysite.manage.utils.import_util import get_model_field
+    # from mysite.manage.utils.import_util import dd_get_model_field
     """
     from django.apps import apps
     model_obj = apps.get_model('manage', 'monitor')  # 根据app_name,model_name获取对象
@@ -22,5 +22,5 @@ def get_model_field():
 
 
 if __name__ == '__main__':
-    get_model_field()
+    dd_get_model_field()
 
