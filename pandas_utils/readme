@@ -1,0 +1,18 @@
+python0
+1.这是一个小项目,用pandas统计数据.
+2.pandas是python第三方库,需提前安装,此项目中用的是版本是0.23.4
+    sudo pip install pandas
+3.csv_dir的目录是数据文件.
+
+4. ac_paymentbooks_his 中的
+
+    CardCode     --->
+    AccNum       --->  人员信息id_AccountsInfo中AccNum
+    FeeNum       --->  消费类型ac_FeeCategory中FeeNum
+    MonDeal      --->  消费金额
+    DealerNum    --->  商户类型ac_Dealer中DealerNum
+    DealTime     --->  交易时间
+    OptNum       --->  操作员编号
+    RecFlag      --->  1为有效
+    DealPeriodNo --->  营业组ac_DealPeriod中PeriodNum
+    StaNum       --->  站点id_Station中StaNum

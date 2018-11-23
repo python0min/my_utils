@@ -191,8 +191,202 @@ def util8(file_name, col_name_index=0, by_name=u'Sheet1'):
     return data_list
 
 
+def util9():
+    """
+    某个月的第一天和最后一天
+    :return:
+    """
+    import calendar as cal
+    import datetime
+    happened_time = '2017-05-02'
+    start_time = datetime.datetime.strptime(happened_time, "%Y-%m-%d").replace(day=1)
+    year, month = start_time.year, start_time.month
+    d = cal.monthrange(year, month)
+    end_time = start_time.replace(day=d[1], hour=23, minute=59, second=59)
+    print start_time, end_time
+
+
+def util10():
+    # @function :3个方法,func1的效率最高,可以用于数据库查询分组
+    """
+      这样的结果  foo = [
+              ('11013331', 'KAT'),
+              ('9085267',  'NOT'),
+              ('5238761',  'ETH'),
+              ('5349618',  'ETH'),
+              ('11788544', 'NOT'),
+              ('962142',   'ETH'),
+              ('7795297',  'ETH'),
+              ('7341464',  'ETH'),
+              ('9843236',  'KAT'),
+              ('5594916',  'ETH'),
+              ('1550003',  'ETH')
+            ]
+        想得到
+        result = [
+               {
+                 type:'KAT',
+                 items: ['11013331', '9843236']
+               },
+               {
+                 type:'NOT',
+                 items: ['9085267', '11788544']
+               },
+               {
+                 type:'ETH',
+                 items: ['5238761', '962142', '7795297', '7341464', '5594916', '1550003']
+               }
+             ]
+    """
+
+    def fun1():
+        from collections import defaultdict
+        foo = [('11013331', 'KAT'), ('9085267', 'NOT'), ('5238761', 'ETH'), ('5349618', 'ETH'), ('11788544', 'NOT'),
+               ('962142', 'ETH'), ('7795297', 'ETH'), ('7341464', 'ETH'), ('9843236', 'KAT'), ('5594916', 'ETH'),
+               ('1550003', 'ETH')]
+        res = defaultdict(list)
+        for v, k in foo:
+            res[k].append(v)
+        print res
+        # list1 = [{'type': k, 'items': v} for k, v in res.items()]
+
+    def fun2():
+        from itertools import groupby
+        from operator import itemgetter
+        foo = [('11013331', 'KAT'), ('9085267', 'NOT'), ('5238761', 'ETH'), ('5349618', 'ETH'), ('11788544', 'NOT'),
+               ('962142', 'ETH'), ('7795297', 'ETH'), ('7341464', 'ETH'), ('9843236', 'KAT'), ('5594916', 'ETH'),
+               ('1550003', 'ETH')]
+        sorted_foo = sorted(foo, key=itemgetter(1))
+        groups = groupby(sorted_foo, key=itemgetter(1))
+        # list2 = [{'type': k, 'items': [x[0] for x in v]} for k, v in groups]
+
+    def func3():
+        from collections import OrderedDict
+        foo = [('11013331', 'KAT'), ('9085267', 'NOT'), ('5238761', 'ETH'), ('5349618', 'ETH'), ('11788544', 'NOT'),
+               ('962142', 'ETH'), ('7795297', 'ETH'), ('7341464', 'ETH'), ('9843236', 'KAT'), ('5594916', 'ETH'),
+               ('1550003', 'ETH')]
+        res = OrderedDict()
+        for v, k in foo:
+            if k in res:
+                res[k].append(v)
+            else:
+                res[k] = [v]
+                # list3 = [{'type': k, 'items': v} for k, v in res.items()]
+    fun1()
+    fun2()
+    func3()
+
+
+def util11():
+    """
+    压缩文件夹  第一种写法
+    : dir_name: 被文件夹目录
+    : file_news:  压缩后的文件名
+    :return:
+    """
+    import os
+    import zipfile
+    dir_name, file_news = '/data/projects/liu', '/data/projects/122.zip'
+    try:
+        file_list = []
+        if os.path.isfile(dir_name):
+            file_list.append(dir_name)
+        else:
+            for root, dirs, files in os.walk(dir_name):
+                for name in files:
+                    file_list.append(os.path.join(root, name))
+
+        zf = zipfile.ZipFile(file_news, "w", zipfile.zlib.DEFLATED)
+        for tar in file_list:
+            arc_name = tar[len(dir_name):]
+            # print arc_name
+            zf.write(tar, arc_name)
+        zf.close()
+        return True
+    except:
+        import traceback
+        traceback.print_exc()
+        return False
+
+
+def util12():
+    """
+    压缩文件夹 第二种写法,更简便
+    : dir_name: 被文件夹目录
+    : file_news:  压缩后的文件名
+    :return:
+    """
+    import os
+    import zipfile
+    dir_name, file_news = '/data/projects/liu', '/data/projects/122.zip'
+    z = zipfile.ZipFile(file_news, 'w', zipfile.ZIP_DEFLATED)  # 参数一：文件夹名
+    for dir_path, dir_names, file_names in os.walk(dir_name):
+        f_path = dir_path.replace(dir_name, '')  # 这一句很重要，不replace的话，就从根目录开始复制
+        f_path = f_path and f_path + os.sep or ''  # 这句话理解我也点郁闷，实现当前文件夹以及包含的所有文件的压缩
+        for filename in file_names:
+            z.write(os.path.join(dir_path, filename), f_path + filename)
+    z.close()
+
+
+def util13():
+    """
+        获取某一年的每个周一的日期
+    """
+    import datetime
+    t_now = datetime.datetime.now()
+    now_year = t_now.year
+    year_num = 2018
+    # start_date 某年的1月1日
+    start_date = datetime.datetime(year_num, 1, 1)
+    # end_date 某年的12月31日
+    end_date = datetime.datetime(year_num, 12, 31)
+    # week_count 某年的1月1日所在的当前周数
+    week_count = start_date.strftime("%W")
+    if now_year == year_num:
+        # total_count 如果是当前年份则是当前的周数
+        total_count = int(t_now.strftime("%W")) - 1
+    else:
+        # 否则返回所有周的总数
+        total_count = int(end_date.strftime("%W"))
+    if week_count == '00':
+        # diff为与下周一相差的天数, start_date则为某一年第一周第一个星期一的日期
+        diff = 8 - start_date.isoweekday()
+        start_date = start_date + datetime.timedelta(days=diff)
+    count_date_dict = {}
+    for i in range(1, total_count + 1):
+        # 这里也可以返回时间戳
+        temp = start_date.strftime('%Y-%m-%d %H:%M:%S')
+        count_date_dict[i] = temp
+        start_date += datetime.timedelta(days=7)
+    print count_date_dict
+
+
+def util14():
+    """
+    查找重复元素
+    : list_a:
+    :return:
+    """
+    list_a = [1, 2, 3, 3, 4, 4, 5, None, None]
+    tem_set = set(list_a)
+    b_list = []
+    for item in tem_set:
+        if list_a.count(item) > 1:
+            b_list.append(item)
+    return b_list
+
+
+def expand_list(nested_list):
+    """将多维的数组变成一维数组"""
+    from sqlalchemy.engine.result import RowProxy
+    for item in nested_list:
+        if isinstance(item, (list, tuple, RowProxy)):
+            for sub_item in expand_list(item):
+                yield sub_item
+        else:
+            yield item
+
+
 if __name__ == '__main__':
     t1 = time.time()
-    print util7('/data/projects/12.xlsx', 0)
-    t2 = time.time()
-    print t2 - t1
+
