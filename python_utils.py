@@ -387,6 +387,66 @@ def expand_list(nested_list):
             yield item
 
 
+def list_count():
+    """
+    矩阵数组计数的几种方式
+    :return:
+    """
+    import numpy as np
+    from collections import Counter
+    foo = [['0', '1', '1'],
+           ['3', '0', '1'],
+           ['1', '4', '1'],
+           ['1', '0', '5']]
+    # **********************方式一*****************************
+    # filter 这个方式过滤的方式来计数，缺点是只能统计一个纵列
+    print filter(lambda x: x[0] == '0', foo)
+    # **********************方式二*****************************
+    foo_new = np.array(foo).T.tolist()
+    print Counter(foo_new[0])
+    # **********************方式三*****************************
+    # 假定数组为a，可以先试用a == 某个数，转换为一个包含True或者False的数字，
+    # 等于该树则为True，不等于则为False，True又可以当作1，False可以当作0，
+    # 使用np.sum求和可以得到等于该数的总个数
+    a = np.array(foo)
+    # print(a)
+    print(np.sum(a == '1', axis=1))  # 横列为‘1’的个数
+    print(np.sum(a == '1', axis=0))  # 纵列为‘1’的个数
+    print(np.sum(a == '1'))  # 总共为‘1’的个数
+
+
+def date_to_stamp():
+    """
+        时间戳转datetime
+        datetime转时间戳
+        datetime格式化字符串
+    :return:
+    """
+    import datetime
+    # **********************datetime戳转时间戳*****************************
+    start_time = '2019-04-02 14:00:22'
+    begin_date = datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
+    begin_stamp = time.mktime(begin_date.timetuple())
+    print begin_date, begin_stamp
+    # **********************把datetime转成字符串*****************************
+    t_now = datetime.datetime.now()
+    now_str = t_now.strftime('%Y-%m-%d %H:%M:%S')
+    print now_str
+    # **********************把字符串转成datetime*****************************
+    start_time = '2019-04-02 14:00:22'
+    begin_date = datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
+    print begin_date
+    # **********************把时间戳转成字符串形式*****************************
+    print time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(begin_stamp))
+    # **********************把时间戳转成datetime*****************************
+    u = 1439111214.0  # unix时间戳
+    t = datetime.datetime.fromtimestamp(u)
+    print t
+
+    st = time.localtime(1350816710.8050799)
+    print st
+
+
 if __name__ == '__main__':
-    t1 = time.time()
+    date_to_stamp()
 
