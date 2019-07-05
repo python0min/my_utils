@@ -59,7 +59,6 @@ def func1():
     # --------------------shape: df_his.shape----------------------------------------------------
     # print df_his.shape
     # =================================================select===========================================================
-    # --------------------对df_his进行where筛选----------------------------------------------------
     print df_his
     # print df_his.loc[1:3, ['AccNum', 'FeeNum']]
     # print df_his.loc[1:3, 'AccNum': 'MonDeal']
@@ -100,8 +99,8 @@ def func1():
     # =================================================group============================================================
     """group一般会配合合计函数(Aggregate functions)使用,比如:count,avg,sum等.有count和size函数实现SQL的count："""
     # print df_his.groupby('FeeNum').size()
-    print df_his.groupby('FeeNum').count()
-    # print df_his['MonDeal'].groupby([df_his['DealerNum'], df_his['StaNum'], df_his['DealPeriodNo']]).agg(['count', 'sum'])
+    # print df_his.groupby('FeeNum').count()
+    print df_his['MonDeal'].groupby([df_his['DealerNum'], df_his['StaNum'], df_his['DealPeriodNo']]).agg(['count', 'sum'])
     # df_his.groupby('MonDeal').agg({'tip': np.max, 'total_bill': np.sum})
     # count(distinct **)
     # df_his.groupby('tip').agg({'sex': pd.Series.nunique})
@@ -151,4 +150,4 @@ def func2():
 
 
 if __name__ == '__main__':
-    func2()
+    func1()

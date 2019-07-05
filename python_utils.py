@@ -39,7 +39,7 @@ def util1():
 
     print t | s  # t 和 s的并集
 
-    print t & s  # t 和 s的交集
+    print t & s, " t 和 s的交集"  # t 和 s的交集
 
     print t - s  # 求差集（项在t中，但不在s中）
 
@@ -423,7 +423,7 @@ def date_to_stamp():
     :return:
     """
     import datetime
-    # **********************datetime戳转时间戳*****************************
+    # **********************字符串转datetime再转时间戳*****************************
     start_time = '2019-04-02 14:00:22'
     begin_date = datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
     begin_stamp = time.mktime(begin_date.timetuple())
@@ -448,5 +448,5 @@ def date_to_stamp():
 
 
 if __name__ == '__main__':
-    date_to_stamp()
+    print util14()
 

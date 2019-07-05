@@ -110,9 +110,51 @@ class Solution(object):
                 return s2[:i]
         return s1
 
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        cnt, ret = 0, 0
+        for num in nums:
+            if cnt == 0:
+                ret = num
+            if num != ret:
+                cnt -= 1
+            else:
+                cnt += 1
+        return ret
+
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+    """
+        while '{}' in s or '()' in s or '[]' in s:
+            s = s.replace('{}', '')
+            print s
+            s = s.replace('[]', '')
+            print s
+            s = s.replace('()', '')
+            print s
+        return s == ''
+
+    def jiecheng(self, s):
+        if s == 0:
+            return 1
+        else:
+            b = self.jiecheng(s-1)
+            print b, s
+            return s * b
+
 
 if __name__ == '__main__':
     a = Solution()
     # print(a.reverse(12231))
     # print a.romanToInt1('LIVVV')
-    print a.longestCommonPrefix(["fowrerasdfasdfsdfsadffd", "fowsdjkhfkj", "flight"])
+    # print a.longestCommonPrefix(["fowrerasdfasdfsdfsadffd", "fowsdjkhfkj", "flight"])
+    # print a.majorityElement([1, 2, 1, 2, 3])
+    # print a.isValid('([{}])')
+    print a.jiecheng(3)
+
+
