@@ -87,6 +87,7 @@ def util3():
 
 def util4():
     """
+        一条/一行/
         简写python;一行python;
 
     :return:
@@ -397,22 +398,29 @@ def list_count():
     foo = [['0', '1', '1'],
            ['3', '0', '1'],
            ['1', '4', '1'],
-           ['1', '0', '5']]
+           ['1', '0', '5']]*10000
     # **********************方式一*****************************
     # filter 这个方式过滤的方式来计数，缺点是只能统计一个纵列
-    print filter(lambda x: x[0] == '0', foo)
+    t1 = time.time()
+    filter(lambda x: x[0] == '0', foo)
+    t2 = time.time()
+    print "1"*10, t2 - t1
     # **********************方式二*****************************
     foo_new = np.array(foo).T.tolist()
-    print Counter(foo_new[0])
+    Counter(foo_new[0])
+    t3 = time.time()
+    print "2"*10, t3 - t2
     # **********************方式三*****************************
     # 假定数组为a，可以先试用a == 某个数，转换为一个包含True或者False的数字，
     # 等于该树则为True，不等于则为False，True又可以当作1，False可以当作0，
     # 使用np.sum求和可以得到等于该数的总个数
     a = np.array(foo)
     # print(a)
-    print(np.sum(a == '1', axis=1))  # 横列为‘1’的个数
-    print(np.sum(a == '1', axis=0))  # 纵列为‘1’的个数
-    print(np.sum(a == '1'))  # 总共为‘1’的个数
+    np.sum(a == '1', axis=1)  # 横列为‘1’的个数
+    np.sum(a == '1', axis=0)  # 纵列为‘1’的个数
+    np.sum(a == '1')  # 总共为‘1’的个数
+    t4 = time.time()
+    print "3"*10, t4 - t3
 
 
 def date_to_stamp():
@@ -447,6 +455,66 @@ def date_to_stamp():
     print st
 
 
-if __name__ == '__main__':
-    print util14()
+def numpy_pad():
+    """
+    填充
+    :return:
+    """
+    import numpy as np
+    # --------------------------------------------------------------------------------------
+    arr1D = np.array([[[1, 1, 2, 2, 3, 4], [1, 1, 2, 2, 3, 4], [1, 1, 2, 2, 3, 4]],
+                  [[0, 1, 2, 3, 4, 5], [0, 1, 2, 3, 4, 5], [0, 1, 2, 3, 4, 5]],
+                  [[1, 1, 2, 2, 3, 4], [1, 1, 2, 2, 3, 4], [1, 1, 2, 2, 3, 4]]])
+    '''不同的填充方法'''
+    print 'constant:  ', np.pad(arr1D, (2, 3), 'constant')
+    print 'edge:  ', np.pad(arr1D, (2, 3), 'edge')
+    print 'linear_ramp:  ' + str(np.pad(arr1D, (2, 3), 'linear_ramp'))
+    print 'maximum:  ' + str(np.pad(arr1D, (2, 3), 'maximum'))
+    print 'mean:  ' + str(np.pad(arr1D, (2, 3), 'mean'))
+    print 'median:  ' + str(np.pad(arr1D, (2, 3), 'median'))
+    print 'minimum:  ' + str(np.pad(arr1D, (2, 3), 'minimum'))
+    print 'reflect:  ' + str(np.pad(arr1D, (2, 3), 'reflect'))
+    print 'symmetric:  ' + str(np.pad(arr1D, (2, 3), 'symmetric'))
+    print 'wrap:  ' + str(np.pad(arr1D, (2, 3), 'wrap'))
 
+
+def list_pad():
+    """
+    数组填充
+    2个一维数组,变成1个二维数组,2个数组长度可以不一样,不一样的情况补None
+    方法二效率最高
+    """
+    a = [1, 2, 3, 19, 28, 38, 18, 999]
+    b = [1, 3]
+    c = [2, 5]
+    t1 = time.time()
+    # -----------------------方法一--------------------
+    map(lambda *row: list(row), a, b)
+    t2 = time.time()
+    print t2 - t1
+    # -----------------------方法二 - -------------------
+    map(None, a, c)
+    t3 = time.time()
+    print t3 - t2
+    # -----------------------方法二 - -------------------
+    map(lambda x, y: [x, y], a, c)
+    t4 = time.time()
+    print t4 - t3
+
+
+def compact():
+    # 以下方法使用 fliter() 删除列表中的错误值（如：False, None, 0 和“”）
+    list_1 = [0, 1, False, 2, None, 3, 'a', 's', 34, '', 38]
+    list_2 = list(filter(bool, list_1))
+    print list_2
+
+
+def chunk():
+    # 以下方法使用 range() 将列表lst分块为指定size进行分割
+    lst, size = [1, 2, 3, 4, 5], 2
+    lis_re = list(map(lambda x: lst[x * size:x * size + size], list(range(0, int(len(lst) / size)))))
+    print lis_re
+
+
+if __name__ == '__main__':
+    list_count()

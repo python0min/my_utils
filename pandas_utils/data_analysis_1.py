@@ -78,13 +78,13 @@ def func1():
     # print df_his.query('FeeNum == 35')  # 换种写法
     # print df_his.query('AccNum > 2')
     # --------在where子句中常常会搭配and, or, in, not关键词，Pandas中也有对应的实现-----------------------
-    # and
+    # 关键词and
     # print df_his[(df_his['AccNum'] > 1) & (df_his['FeeNum'] == 35)]
-    # or
+    # 关键词or
     # print df_his[(df_his['AccNum'] > 1) | (df_his['FeeNum'] == 35)]
-    # in
+    # 关键词in
     # print df_his[df_his['AccNum'].isin([10053, 10265, 10222])]
-    # not
+    # 关键词not
     # print df_his[-(df_his['FeeNum'] == 35)]  # 或者  df_his.query('FeeNum != 35')
     # print df_his[-df_his['AccNum'].isin([10053, 10265, 10222])]
     # string function  这个没有实现
@@ -135,6 +135,7 @@ def func2():
     df = pd.read_csv("csv_dir/ac_paymentbooks_his.csv", sep=',', usecols=[2, 3, 4, 6, 9])
     df = df[(df['FeeNum'] == 100) & (df['DealPeriodNo'].isin([9, 10, 11]))]
     print df.groupby('DealPeriodNo').count()
+    print "--"*60
     df = df['MonDeal'].groupby([df['DealerNum'], df['StaNum'], df['DealPeriodNo']]).agg(['count', 'sum'])
     print df.unstack().fillna(0)
     print "------------------------------------------------------------------------------------------------"
@@ -150,4 +151,4 @@ def func2():
 
 
 if __name__ == '__main__':
-    func1()
+    func2()
