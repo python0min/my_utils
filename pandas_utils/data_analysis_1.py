@@ -38,7 +38,7 @@ def set_style(name, height, bold=False):
 
 def func1():
     """
-    read_csv里常用的 names, sep, usecols, dtype, headers, nrows
+    read_csv里常用的 names, sep, usecols, dtype, header, nrows
     names指文件中没有列名,如果第一行没有列,可以用这个; usecols这个可以用来获取指定列; sep用什么符号分割; nrows : int, default None
     """
     header_user = ['AccNum', 'AccName', 'DepNum']
@@ -59,7 +59,7 @@ def func1():
     # --------------------shape: df_his.shape----------------------------------------------------
     # print df_his.shape
     # =================================================select===========================================================
-    print df_his
+    # print df_his
     # print df_his.loc[1:3, ['AccNum', 'FeeNum']]
     # print df_his.loc[1:3, 'AccNum': 'MonDeal']
     # print df_his.iloc[1:4, [0, 2]]
@@ -79,7 +79,8 @@ def func1():
     # print df_his.query('AccNum > 2')
     # --------在where子句中常常会搭配and, or, in, not关键词，Pandas中也有对应的实现-----------------------
     # 关键词and
-    # print df_his[(df_his['AccNum'] > 1) & (df_his['FeeNum'] == 35)]
+    print df_his.dtypes
+    print df_his[(df_his['AccNum'] > 1) & (df_his['FeeNum'] > 35.0)]
     # 关键词or
     # print df_his[(df_his['AccNum'] > 1) | (df_his['FeeNum'] == 35)]
     # 关键词in
@@ -100,7 +101,7 @@ def func1():
     """group一般会配合合计函数(Aggregate functions)使用,比如:count,avg,sum等.有count和size函数实现SQL的count："""
     # print df_his.groupby('FeeNum').size()
     # print df_his.groupby('FeeNum').count()
-    print df_his['MonDeal'].groupby([df_his['DealerNum'], df_his['StaNum'], df_his['DealPeriodNo']]).agg(['count', 'sum'])
+    # print df_his['MonDeal'].groupby([df_his['DealerNum'], df_his['StaNum'], df_his['DealPeriodNo']]).agg(['count', 'sum'])
     # df_his.groupby('MonDeal').agg({'tip': np.max, 'total_bill': np.sum})
     # count(distinct **)
     # df_his.groupby('tip').agg({'sex': pd.Series.nunique})
@@ -151,4 +152,4 @@ def func2():
 
 
 if __name__ == '__main__':
-    func2()
+    func1()
