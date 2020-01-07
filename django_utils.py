@@ -16,9 +16,9 @@ def dd_get_model_field():
     filed_list = model_obj._meta.fields
 
     for i in filed_list:
-        print i.get_attname_column()[0]  # 数据库字段名
-        print i.name  # field的名称
-        print i.verbose_name  # 对应的中文名称
+        print(i.get_attname_column()[0])  # 数据库字段名
+        print(i.name)   # field的名称
+        print(i.verbose_name)   # 对应的中文名称
 
 
 def func1(app_label, model_name):
@@ -64,56 +64,56 @@ def dd_get_speed_query():
     m3 = m_all.filter(branch_type=34).count()
     m4 = m_all.filter(branch_type=42).count()
     t2 = time.time()
-    print "t2 - t1", t2 - t1
+    print("t2 - t1", t2 - t1)
     m8 = Monitor.objects.filter(branch_type=22).count()
     m5 = Monitor.objects.filter(branch_type=30).count()
     m6 = Monitor.objects.filter(branch_type=34).count()
     m7 = Monitor.objects.filter(branch_type=42).count()
     t3 = time.time()
-    print "t3 - t2", t3 - t2
+    print("t3 - t2", t3 - t2)
     branch_list = []
     m9 = Monitor.objects.filter(branch_type__in=[22, 30, 34, 42])
     for ii in m9:
         branch_list.append(ii.branch_type)
-    print Counter(branch_list)
+    print(Counter(branch_list))
     t4 = time.time()
-    print "t4 - t3", t4 - t3
+    print("t4 - t3", t4 - t3)
     sql = "select count(branch_type),branch_type from monitor where branch_type in (22, 30, 34, 42) GROUP BY branch_type;"
     c_data = query_all(sql)
-    print c_data
+    print(c_data)
     t5 = time.time()
-    print "t5 - t4", t5 - t4
+    print("t5 - t4", t5 - t4)
     sql2 = "select branch_type from monitor where branch_type in (22, 30, 34, 42)"
     c1_data = query_all(sql2)
     c1_data = map(lambda x: x[0], c1_data)
-    print Counter(c1_data)
+    print(Counter(c1_data))
     t6 = time.time()
-    print "t6 - t5", t6 - t5
+    print("t6 - t5", t6 - t5)
     sql3 = "select branch_type from monitor where branch_type in (22, 30, 34, 42)"
     c3_data = query_all(sql3)
     df = DataFrame(data=c3_data, columns=['branch_type'])
-    print df.groupby('branch_type').count()
+    print(df.groupby('branch_type').count())
     t7 = time.time()
-    print "t7 - t6", t7 - t6
+    print("t7 - t6", t7 - t6)
     m10 = Monitor.objects.filter(branch_type__in=[22, 30, 34, 42]).values('branch_type')
     c3_data = map(lambda x: x['branch_type'], m10)
-    print Counter(c3_data)
+    print(Counter(c3_data))
     t8 = time.time()
-    print "t8 - t7", t8 - t7
+    print("t8 - t7", t8 - t7)
     m11 = Monitor.objects.filter(branch_type__in=[22, 30, 34, 42]).values('branch_type').annotate(dcount=Count('branch_type'))
-    print m11
+    print(m11)
     t9 = time.time()
-    print "t9 - t8", t9 - t8
+    print("t9 - t8", t9 - t8)
     m12 = Monitor.objects.filter(branch_type__in=[22, 30, 34, 42])
     a = m12.query.group_by = ['branch_type']
-    print a
+    print(a)
     t10 = time.time()
-    print "t10 - t9", t10 - t9
+    print("t10 - t9", t10 - t9)
     branch_list1 = []
     m13 = Monitor.objects.filter(branch_type__in=[22, 30, 34, 42]).values('branch_type')
     for jj in m13:
         branch_list1.append(jj['branch_type'])
-    print Counter(branch_list1)
+    print(Counter(branch_list1))
     t11 = time.time()
 
 

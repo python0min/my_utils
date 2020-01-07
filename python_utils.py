@@ -18,18 +18,18 @@ def util1():
     a = [2, 3, 4, 5]
     b = [2, 5, 8]
     tmp = [val for val in a if val in b]
-    print tmp
+    print(tmp)
     # [2, 5]
 
     # 方法二
-    print list(set(a).intersection(set(b)))
+    print(list(set(a).intersection(set(b))))
 
     # =====================并集===========================
-    print list(set(a).union(set(b)))
+    print(list(set(a).union(set(b))))
 
     # =====================差集===========================
-    print list(set(b).difference(set(a)))  # b中有而a中没有的
-    print list(set(a).difference(set(b)))  # a中有而b中没有的
+    print(list(set(b).difference(set(a))))  # b中有而a中没有的
+    print(list(set(a).difference(set(b))))  # a中有而b中没有的
 
     """======================运算符================================"""
     # 集合支持一系列标准操作，包括并集、交集、差集和对称差集，例如：
@@ -37,13 +37,13 @@ def util1():
     t = set([1, 2, 3])
     s = set([3, 4, 5])
 
-    print t | s  # t 和 s的并集
+    print(t | s)  # t 和 s的并集
 
-    print t & s, " t 和 s的交集"  # t 和 s的交集
+    print(t & s, " t 和 s的交集")  # t 和 s的交集
 
-    print t - s  # 求差集（项在t中，但不在s中）
+    print(t - s)  # 求差集（项在t中，但不在s中）
 
-    print t ^ s  # 对称差集（项在t或s中，但不会同时出现在二者中）
+    print(t ^ s)  # 对称差集（项在t或s中，但不会同时出现在二者中）
 
 
 def util2():
@@ -55,11 +55,11 @@ def util2():
     import types
     # 方法一 ========================================================
     tmp_value = 1
-    print isinstance(tmp_value, (types.FloatType, types.IntType))
+    print(isinstance(tmp_value, (types.FloatType, types.IntType)))
 
     # 方法二=========================================================
     if type(tmp_value) in (types.FloatType, types.IntType):
-        print 111
+        print(111)
 
 
 def util3():
@@ -80,9 +80,9 @@ def util3():
     # ===========================对于纯数字也可以通过格式化的方式来补0====================
     v3 = 123
     r3 = '%05d' % v3
-    print r1, type(r1)
-    print r2, type(r2)
-    print r3, type(r3)
+    print(r1, type(r1))
+    print(r2, type(r2))
+    print(r3, type(r3))
 
 
 def util4():
@@ -92,11 +92,11 @@ def util4():
 
     :return:
     """
-    print 1 if True else '0'
+    print(1 if True else '0')
     a = [2, 3, 4, 5]
     b = [2, 5, 8]
     tmp = [val for val in a if val in b]
-    print tmp
+    print(tmp)
 
 
 def util5():
@@ -113,7 +113,7 @@ def util5():
     import numpy as np
     data_list = [[64, 0], [128, 1], [256, 0]]
     data_arr = np.array(data_list).T.tolist()
-    print data_arr
+    print(data_arr)
 
 
 def util6():
@@ -123,11 +123,11 @@ def util6():
     """
     import datetime
     # 当月1号
-    print datetime.date(datetime.date.today().year, datetime.date.today().month, 1)
+    print(datetime.date(datetime.date.today().year, datetime.date.today().month, 1))
     # 当月1号
-    print datetime.date.today().replace(day=1)
+    print(datetime.date.today().replace(day=1))
     # 上月1号
-    print (datetime.date.today().replace(day=1) - datetime.timedelta(1)).replace(day=1)
+    print((datetime.date.today().replace(day=1) - datetime.timedelta(1)).replace(day=1))
 
 
 def get_merged_cells_value(sheet, row_index, col_index):
@@ -162,7 +162,7 @@ def util7(file_name, sheet_index=0):
     cols_num = sheet_obj.ncols  # 列数
     data_list = []
     materiel_code = sheet_obj.row_values(1)[1]  # 某一个单元格的值
-    print materiel_code
+    print(materiel_code)
     for r in range(1, rows_num):
         # 一行数据的实体类
         # entity_dict = {}
@@ -173,7 +173,7 @@ def util7(file_name, sheet_index=0):
             if cell_value is None or cell_value == '':
                 cell_value = (get_merged_cells_value(sheet_obj, r, c))
             entity_list.append(cell_value)
-        # print entity_list
+        # print(entity_list)
         data_list.append(entity_list)
     return data_list
 
@@ -204,7 +204,7 @@ def util9():
     year, month = start_time.year, start_time.month
     d = cal.monthrange(year, month)
     end_time = start_time.replace(day=d[1], hour=23, minute=59, second=59)
-    print start_time, end_time
+    print(start_time, end_time)
 
 
 def util10():
@@ -248,7 +248,7 @@ def util10():
         res = defaultdict(list)
         for v, k in foo:
             res[k].append(v)
-        print res
+        print(res)
         # list1 = [{'type': k, 'items': v} for k, v in res.items()]
 
     def fun2():
@@ -300,7 +300,7 @@ def util11():
         zf = zipfile.ZipFile(file_news, "w", zipfile.zlib.DEFLATED)
         for tar in file_list:
             arc_name = tar[len(dir_name):]
-            # print arc_name
+            # print(arc_name)
             zf.write(tar, arc_name)
         zf.close()
         return True
@@ -359,7 +359,7 @@ def util13():
         temp = start_date.strftime('%Y-%m-%d %H:%M:%S')
         count_date_dict[i] = temp
         start_date += datetime.timedelta(days=7)
-    print count_date_dict
+    print(count_date_dict)
 
 
 def util14():
@@ -404,12 +404,12 @@ def list_count():
     t1 = time.time()
     filter(lambda x: x[0] == '0', foo)
     t2 = time.time()
-    print "1"*10, t2 - t1
+    print("1"*10, t2 - t1)
     # **********************方式二*****************************
     foo_new = np.array(foo).T.tolist()
     Counter(foo_new[0])
     t3 = time.time()
-    print "2"*10, t3 - t2
+    print("2"*10, t3 - t2)
     # **********************方式三*****************************
     # 假定数组为a，可以先试用a == 某个数，转换为一个包含True或者False的数字，
     # 等于该树则为True，不等于则为False，True又可以当作1，False可以当作0，
@@ -420,7 +420,7 @@ def list_count():
     np.sum(a == '1', axis=0)  # 纵列为‘1’的个数
     np.sum(a == '1')  # 总共为‘1’的个数
     t4 = time.time()
-    print "3"*10, t4 - t3
+    print("3"*10, t4 - t3)
 
 
 def date_to_stamp():
@@ -435,24 +435,24 @@ def date_to_stamp():
     start_time = '2019-04-02 14:00:22'
     begin_date = datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
     begin_stamp = time.mktime(begin_date.timetuple())
-    print begin_date, begin_stamp
+    print(begin_date, begin_stamp)
     # **********************把datetime转成字符串*****************************
     t_now = datetime.datetime.now()
     now_str = t_now.strftime('%Y-%m-%d %H:%M:%S')
-    print now_str
+    print(now_str)
     # **********************把字符串转成datetime*****************************
     start_time = '2019-04-02 14:00:22'
     begin_date = datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
-    print begin_date
+    print(begin_date)
     # **********************把时间戳转成字符串形式*****************************
-    print time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(begin_stamp))
+    print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(begin_stamp)))
     # **********************把时间戳转成datetime*****************************
     u = 1439111214.0  # unix时间戳
     t = datetime.datetime.fromtimestamp(u)
-    print t
+    print(t)
 
     st = time.localtime(1350816710.8050799)
-    print st
+    print(st)
 
 
 def numpy_pad():
@@ -466,16 +466,16 @@ def numpy_pad():
                   [[0, 1, 2, 3, 4, 5], [0, 1, 2, 3, 4, 5], [0, 1, 2, 3, 4, 5]],
                   [[1, 1, 2, 2, 3, 4], [1, 1, 2, 2, 3, 4], [1, 1, 2, 2, 3, 4]]])
     '''不同的填充方法'''
-    print 'constant:  ', np.pad(arr1D, (2, 3), 'constant')
-    print 'edge:  ', np.pad(arr1D, (2, 3), 'edge')
-    print 'linear_ramp:  ' + str(np.pad(arr1D, (2, 3), 'linear_ramp'))
-    print 'maximum:  ' + str(np.pad(arr1D, (2, 3), 'maximum'))
-    print 'mean:  ' + str(np.pad(arr1D, (2, 3), 'mean'))
-    print 'median:  ' + str(np.pad(arr1D, (2, 3), 'median'))
-    print 'minimum:  ' + str(np.pad(arr1D, (2, 3), 'minimum'))
-    print 'reflect:  ' + str(np.pad(arr1D, (2, 3), 'reflect'))
-    print 'symmetric:  ' + str(np.pad(arr1D, (2, 3), 'symmetric'))
-    print 'wrap:  ' + str(np.pad(arr1D, (2, 3), 'wrap'))
+    print('constant:  ', np.pad(arr1D, (2, 3), 'constant'))
+    print('edge:  ', np.pad(arr1D, (2, 3), 'edge'))
+    print('linear_ramp:  ' + str(np.pad(arr1D, (2, 3), 'linear_ramp')))
+    print('maximum:  ' + str(np.pad(arr1D, (2, 3), 'maximum')))
+    print('mean:  ' + str(np.pad(arr1D, (2, 3), 'mean')))
+    print('median:  ' + str(np.pad(arr1D, (2, 3), 'median')))
+    print('minimum:  ' + str(np.pad(arr1D, (2, 3), 'minimum')))
+    print('reflect:  ' + str(np.pad(arr1D, (2, 3), 'reflect')))
+    print('symmetric:  ' + str(np.pad(arr1D, (2, 3), 'symmetric')))
+    print('wrap:  ' + str(np.pad(arr1D, (2, 3), 'wrap')))
 
 
 def list_pad():
@@ -491,29 +491,29 @@ def list_pad():
     # -----------------------方法一--------------------
     map(lambda *row: list(row), a, b)
     t2 = time.time()
-    print t2 - t1
+    print(t2 - t1)
     # -----------------------方法二 - -------------------
     map(None, a, c)
     t3 = time.time()
-    print t3 - t2
+    print(t3 - t2)
     # -----------------------方法二 - -------------------
     map(lambda x, y: [x, y], a, c)
     t4 = time.time()
-    print t4 - t3
+    print(t4 - t3)
 
 
 def compact():
     # 以下方法使用 fliter() 删除列表中的错误值（如：False, None, 0 和“”）
     list_1 = [0, 1, False, 2, None, 3, 'a', 's', 34, '', 38]
     list_2 = list(filter(bool, list_1))
-    print list_2
+    print(list_2)
 
 
 def chunk():
     # 以下方法使用 range() 将列表lst分块为指定size进行分割
     lst, size = [1, 2, 3, 4, 5], 2
     lis_re = list(map(lambda x: lst[x * size:x * size + size], list(range(0, int(len(lst) / size)))))
-    print lis_re
+    print(lis_re)
 
 
 if __name__ == '__main__':

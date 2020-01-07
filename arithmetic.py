@@ -132,11 +132,11 @@ class Solution(object):
     """
         while '{}' in s or '()' in s or '[]' in s:
             s = s.replace('{}', '')
-            print s
+            print(s)
             s = s.replace('[]', '')
-            print s
+            print(s)
             s = s.replace('()', '')
-            print s
+            print(s)
         return s == ''
 
     def jiecheng(self, s):
@@ -144,17 +144,17 @@ class Solution(object):
             return 1
         else:
             b = self.jiecheng(s-1)
-            print b, s
+            print(b, s)
             return s * b
 
 
 if __name__ == '__main__':
     a = Solution()
     # print(a.reverse(12231))
-    # print a.romanToInt1('LIVVV')
-    # print a.longestCommonPrefix(["fowrerasdfasdfsdfsadffd", "fowsdjkhfkj", "flight"])
-    # print a.majorityElement([1, 2, 1, 2, 3])
-    # print a.isValid('([{}])')
-    print a.jiecheng(3)
+    # print(a.romanToInt1('LIVVV'))
+    # print(a.longestCommonPrefix(["fowrerasdfasdfsdfsadffd", "fowsdjkhfkj", "flight"]))
+    # print(a.majorityElement([1, 2, 1, 2, 3]))
+    # print(a.isValid('([{}])'))
+    print(a.jiecheng(3))
 
 
