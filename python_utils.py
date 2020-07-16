@@ -93,9 +93,9 @@ def util4():
     :return:
     """
     print(1 if True else '0')
-    a = [2, 3, 4, 5]
-    b = [2, 5, 8]
-    tmp = [val for val in a if val in b]
+    a_list = [2, 3, 4, 5]
+    b_list = [2, 5, 8]
+    tmp = [val for val in a_list if val in b_list]
     print(tmp)
 
 
@@ -183,7 +183,7 @@ def util8(file_name, col_name_index=0, by_name=u'Sheet1'):
     data = xlrd.open_workbook(file_name)
     # table = data.sheet_by_name(by_name)
     table = data.sheet_by_index(0)
-    n_rows = table.nrows   # 行数
+    n_rows = table.nrows  # 行数
     # col_names = table.row_values(col_name_index)  # 某一行数据
     data_list = []
     for r in range(1, n_rows):
@@ -242,11 +242,12 @@ def util10():
 
     def fun1():
         from collections import defaultdict
-        foo = [('11013331', 'KAT'), ('9085267', 'NOT'), ('5238761', 'ETH'), ('5349618', 'ETH'), ('11788544', 'NOT'),
-               ('962142', 'ETH'), ('7795297', 'ETH'), ('7341464', 'ETH'), ('9843236', 'KAT'), ('5594916', 'ETH'),
-               ('1550003', 'ETH')]
+        data_list = [('11013331', 'KAT'), ('9085267', 'NOT'), ('5238761', 'ETH'), ('5349618', 'ETH'),
+                     ('11788544', 'NOT'),
+                     ('962142', 'ETH'), ('7795297', 'ETH'), ('7341464', 'ETH'), ('9843236', 'KAT'), ('5594916', 'ETH'),
+                     ('1550003', 'ETH')]
         res = defaultdict(list)
-        for v, k in foo:
+        for v, k in data_list:
             res[k].append(v)
         print(res)
         # list1 = [{'type': k, 'items': v} for k, v in res.items()]
@@ -254,11 +255,12 @@ def util10():
     def fun2():
         from itertools import groupby
         from operator import itemgetter
-        foo = [('11013331', 'KAT'), ('9085267', 'NOT'), ('5238761', 'ETH'), ('5349618', 'ETH'), ('11788544', 'NOT'),
-               ('962142', 'ETH'), ('7795297', 'ETH'), ('7341464', 'ETH'), ('9843236', 'KAT'), ('5594916', 'ETH'),
-               ('1550003', 'ETH')]
-        sorted_foo = sorted(foo, key=itemgetter(1))
-        groups = groupby(sorted_foo, key=itemgetter(1))
+        data_list = [('11013331', 'KAT'), ('9085267', 'NOT'), ('5238761', 'ETH'), ('5349618', 'ETH'),
+                     ('11788544', 'NOT'),
+                     ('962142', 'ETH'), ('7795297', 'ETH'), ('7341464', 'ETH'), ('9843236', 'KAT'), ('5594916', 'ETH'),
+                     ('1550003', 'ETH')]
+        sorted_data_list = sorted(data_list, key=itemgetter(1))
+        groups = groupby(sorted_data_list, key=itemgetter(1))
         # list2 = [{'type': k, 'items': [x[0] for x in v]} for k, v in groups]
 
     def func3():
@@ -273,6 +275,7 @@ def util10():
             else:
                 res[k] = [v]
                 # list3 = [{'type': k, 'items': v} for k, v in res.items()]
+
     fun1()
     fun2()
     func3()
@@ -368,12 +371,13 @@ def util14():
     : list_a:
     :return:
     """
-    list_a = [1, 2, 3, 3, 4, 4, 5, None, None]
+    list_a = [1, 2, 3, 3, 4, 4, 5, None, None] * 200000
     tem_set = set(list_a)
     b_list = []
     for item in tem_set:
         if list_a.count(item) > 1:
             b_list.append(item)
+    print(b_list)
     return b_list
 
 
@@ -398,18 +402,18 @@ def list_count():
     foo = [['0', '1', '1'],
            ['3', '0', '1'],
            ['1', '4', '1'],
-           ['1', '0', '5']]*10000
+           ['1', '0', '5']] * 10000
     # **********************方式一*****************************
     # filter 这个方式过滤的方式来计数，缺点是只能统计一个纵列
     t1 = time.time()
     filter(lambda x: x[0] == '0', foo)
     t2 = time.time()
-    print("1"*10, t2 - t1)
+    print("1" * 10, t2 - t1)
     # **********************方式二*****************************
     foo_new = np.array(foo).T.tolist()
     Counter(foo_new[0])
     t3 = time.time()
-    print("2"*10, t3 - t2)
+    print("2" * 10, t3 - t2)
     # **********************方式三*****************************
     # 假定数组为a，可以先试用a == 某个数，转换为一个包含True或者False的数字，
     # 等于该树则为True，不等于则为False，True又可以当作1，False可以当作0，
@@ -420,7 +424,7 @@ def list_count():
     np.sum(a == '1', axis=0)  # 纵列为‘1’的个数
     np.sum(a == '1')  # 总共为‘1’的个数
     t4 = time.time()
-    print("3"*10, t4 - t3)
+    print("3" * 10, t4 - t3)
 
 
 def date_to_stamp():
@@ -463,8 +467,8 @@ def numpy_pad():
     import numpy as np
     # --------------------------------------------------------------------------------------
     arr1D = np.array([[[1, 1, 2, 2, 3, 4], [1, 1, 2, 2, 3, 4], [1, 1, 2, 2, 3, 4]],
-                  [[0, 1, 2, 3, 4, 5], [0, 1, 2, 3, 4, 5], [0, 1, 2, 3, 4, 5]],
-                  [[1, 1, 2, 2, 3, 4], [1, 1, 2, 2, 3, 4], [1, 1, 2, 2, 3, 4]]])
+                      [[0, 1, 2, 3, 4, 5], [0, 1, 2, 3, 4, 5], [0, 1, 2, 3, 4, 5]],
+                      [[1, 1, 2, 2, 3, 4], [1, 1, 2, 2, 3, 4], [1, 1, 2, 2, 3, 4]]])
     '''不同的填充方法'''
     print('constant:  ', np.pad(arr1D, (2, 3), 'constant'))
     print('edge:  ', np.pad(arr1D, (2, 3), 'edge'))
@@ -516,5 +520,61 @@ def chunk():
     print(lis_re)
 
 
+def download_img():
+    """
+    下载网络图片的2种方式,
+    方式一速度更快
+    :return:
+    """
+    import urllib.request
+    import requests
+
+    data_list = [
+        'http://cdn-app.diandingding.com/upload/13088651111/cb6c6684-db91-11e6-a750-00163e012235',
+        'http://cdn-app.diandingding.com/upload/15831118536/1c059676-f27e-11e6-b3d2-00163e012235'
+    ]
+
+    # ---------------------方式一---------------------------------
+
+    def download1():
+        for i, e in enumerate(data_list):
+            urllib.request.urlretrieve(e, str(i))
+
+    # ---------------------方式一---------------------------------
+    def download2():
+        for i, e in enumerate(data_list):
+            response = requests.get(e)
+            with open(str(i + 2), 'wb') as f:
+                f.write(response.content)
+
+    download2()
+
+
+def exchange_key_value():
+    """
+    key,value 交换
+    :return:
+    """
+    t_t = (
+        (1, u"电信流量卡"),
+        (2, u"流量卡"),
+        (3, u"NB卡"),
+        (0, u"未知"),
+    )
+    t_dict = {v: k for k, v in t_t}
+    print(t_dict)
+
+
+def list_split(items, n):
+    """
+    数组等分
+    :param items: 数组 []
+    :param n: 等分的个数  int
+    :return:
+    """
+    return [items[i:i + n] for i in range(0, len(items), n)]
+
+
 if __name__ == '__main__':
-    pass
+    # exchange_key_value()
+    util14()

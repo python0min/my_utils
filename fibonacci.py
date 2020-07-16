@@ -6,7 +6,7 @@
 # @function :
 
 
-class Fibonacci(object):
+class FibonacciIter(object):
     """
     用迭代器的方式实现斐波那契数列
     迭代器的优点，占用极小的空间去迭代
@@ -38,7 +38,25 @@ class Fibonacci(object):
             raise StopIteration
 
 
+def fibo(all_num):
+    """
+    生成器实现斐波那契数列
+    :param all_num:
+    :return:
+    """
+    a = 0
+    b = 1
+    current_num = 0
+    while current_num < all_num:
+        yield a
+        a, b = b, a + b
+        current_num += 1
+
+
 if __name__ == '__main__':
-    fib = Fibonacci(10)
+    fib = FibonacciIter(10)
     for num in fib:
         print(num)
+
+    for f in fibo(10):
+        print(f)
